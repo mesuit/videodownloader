@@ -17,7 +17,8 @@ app.get("/api/search", async (req, res) => {
   if (!q) return res.json({ status: false, result: [] });
 
   try {
-    const r = await fetch(`https://apis-keith.vercel.app/search?q=${encodeURIComponent(q)}`);
+    const r = await fetch(`https://apis-keith.vercel.app/search?q=${encodeURIComponent(q)}`,
+                          `https://my-rest-apis-six.vercel.app/yts?query=${encodeURIComponent(query)}`);
     const data = await r.json();
     res.json(data);
   } catch (err) {
