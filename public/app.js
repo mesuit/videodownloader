@@ -20,16 +20,16 @@ async function search() {
     div.innerHTML = `
       <h3>${item.title}</h3>
       <img src="${item.thumbnail}" alt="${item.title}"/>
-      <p>Views: ${item.views} | Duration: ${item.duration} | Published: ${item.published}</p>
-      <button onclick="download('${item.id}')">⬇ Download MP4</button>
+      <p>Views: ${item.views || "?"} | Duration: ${item.duration || "?"} | Published: ${item.published || "?"}</p>
+      <button onclick="download('${item.id}', '${item.url}')">⬇ Download MP4</button>
     `;
 
     resultsDiv.appendChild(div);
   });
 }
 
-async function download(id) {
-  const res = await fetch(`/api/download?id=${id}`);
+async function download(id, url) {
+  const res = await fetch(`/api/download?id=${id}&url=${encodeURIComponent(url)}`);
   const data = await res.json();
 
   if (data.status && data.download) {
